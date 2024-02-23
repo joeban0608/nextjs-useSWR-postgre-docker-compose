@@ -40,30 +40,9 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { v4 as uuidv4 } from "uuid";
+import { Task } from "@/types/task";
 
-const data: Payment[] = [
-  {
-    id: uuidv4(),
-    name: "joe",
-    job: "go to school",
-    category: "green",
-  },
-  {
-    id: uuidv4(),
-    name: "joeban",
-    job: "go to home",
-    category: "yellow",
-  },
-];
-
-export type Payment = {
-  id: string;
-  name: string;
-  job: string;
-  category: "red" | "yellow" | "green";
-};
-
-export const columns: ColumnDef<Payment>[] = [
+const columns: ColumnDef<Task>[] = [
   {
     id: "select",
     header: ({ table }) => (
@@ -120,7 +99,7 @@ export const columns: ColumnDef<Payment>[] = [
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const payment = row.original;
+      const Task = row.original;
 
       return (
         <DropdownMenu>
@@ -133,13 +112,13 @@ export const columns: ColumnDef<Payment>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuLabel>Actions</DropdownMenuLabel>
             <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(payment.id)}
+              onClick={() => navigator.clipboard.writeText(Task.id)}
             >
-              Copy payment ID
+              Copy Task ID
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View payment details</DropdownMenuItem>
+            <DropdownMenuItem>View Task details</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       );
@@ -147,7 +126,7 @@ export const columns: ColumnDef<Payment>[] = [
   },
 ];
 
-const TodoList = () => {
+const TodoList = ({ todoList }: { todoList: Task[] }) => {
   const [sorting, setSorting] = React.useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
     []
@@ -157,7 +136,7 @@ const TodoList = () => {
   const [rowSelection, setRowSelection] = React.useState({});
 
   const table = useReactTable({
-    data,
+    data: todoList,
     columns,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
