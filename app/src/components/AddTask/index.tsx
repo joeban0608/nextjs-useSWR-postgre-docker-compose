@@ -35,6 +35,7 @@ import { useState } from "react";
 import { toast } from "sonner";
 import { formattedTimeNow } from "@/utils/timeFormat";
 import { showCreateFailed, showCreateSuccess } from "@/utils/showStatus";
+import { useRouter } from "next/navigation";
 
 const formSchema = z.object({
   name: z.string().min(2).max(50),
@@ -42,6 +43,7 @@ const formSchema = z.object({
   category: z.enum(["green", "red", "yellow"]),
 });
 const AddTask = () => {
+  const router = useRouter();
   const [isOpenTask, setIsOpenTask] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -59,10 +61,12 @@ const AddTask = () => {
     if ("error" in data) {
       showCreateFailed();
       closeTaskModal();
+      router.refresh();
       return;
     }
     showCreateSuccess();
     closeTaskModal();
+    router.refresh();
     // toast("Event has been created", {
     //   description: formattedTimeNow,
     //   action: {

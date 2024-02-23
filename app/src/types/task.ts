@@ -3,4 +3,5 @@ export type Task = {
   name: string;
   job: string;
   category: "red" | "yellow" | "green";
+  update_time: Date;
 };

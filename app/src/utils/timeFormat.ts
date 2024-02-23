@@ -42,3 +42,11 @@ hours = hours % 12 || 12; // 如果小时为 0，则转换为 12
 export const formattedTimeNow = `${weekday}, ${month} ${day}, ${year} at ${hours}:${
   minutes < 10 ? "0" : ""
 }${minutes} ${amPm}`;
+
+const currentTimeISO = new Date("2024-02-23T08:05:29.006Z");
+export const formattedCurrentTimeISO= `${currentTimeISO.getFullYear()}-${(
+  "0" +
+  (currentTimeISO.getMonth() + 1)
+).slice(-2)}-${("0" + currentTimeISO.getDate()).slice(-2)}-${(
+  "0" + currentTimeISO.getHours()
+).slice(-2)}:${("0" + currentTimeISO.getMinutes()).slice(-2)}`;

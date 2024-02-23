@@ -39,7 +39,6 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { v4 as uuidv4 } from "uuid";
 import { Task } from "@/types/task";
 
 const columns: ColumnDef<Task>[] = [
@@ -113,6 +112,23 @@ const columns: ColumnDef<Task>[] = [
     },
     cell: ({ row }) => (
       <div className="lowercase">{row.getValue("category")}</div>
+    ),
+  },
+  {
+    accessorKey: "update_time",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Update time
+          <CaretSortIcon className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
+    cell: ({ row }) => (
+      <div className="lowercase">{row.getValue("update_time")}</div>
     ),
   },
   {
