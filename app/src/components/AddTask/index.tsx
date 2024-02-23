@@ -11,7 +11,6 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import { FaPlus } from "react-icons/fa";
 import { z } from "zod";
@@ -19,7 +18,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -32,13 +30,19 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { postAddTask } from "@/lib/api";
+import { useState } from "react";
+import { toast } from "sonner";
+import { formattedTimeNow } from "@/utils/timeFormat";
+import { showCreateFailed, showCreateSuccess } from "@/utils/showStatus";
 
 const formSchema = z.object({
   name: z.string().min(2).max(50),
   job: z.string().min(6).max(50),
-  category: z.string().min(2).max(50),
+  category: z.enum(["green", "red", "yellow"]),
 });
 const AddTask = () => {
+  const [isOpenTask, setIsOpenTask] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -47,12 +51,30 @@ const AddTask = () => {
       category: "green",
     },
   });
-  function onSubmit(values: z.infer<typeof formSchema>) {
-    console.log(values);
-  }
+
+  const closeTaskModal = () => setIsOpenTask(false);
+
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
+    const data = await postAddTask(values);
+    if ("error" in data) {
+      showCreateFailed();
+      closeTaskModal();
+      return;
+    }
+    showCreateSuccess();
+    closeTaskModal();
+    // toast("Event has been created", {
+    //   description: formattedTimeNow,
+    //   action: {
+    //     label: "Created status",
+    //     onClick: () => console.log("Undo"),
+    //   },
+    // });
+    console.log("data", data);
+  };
   return (
     <>
-      <Dialog>
+      <Dialog open={isOpenTask} onOpenChange={setIsOpenTask}>
         <DialogTrigger asChild>
           <Button className="flex gap-2" variant="default">
             <FaPlus /> Add new task
@@ -123,31 +145,6 @@ const AddTask = () => {
               </DialogFooter>
             </form>
           </Form>
-          {/* <div className="grid gap-4 py-4">
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="name" className="text-right">
-                Name
-              </Label>
-              <Input id="name" className="col-span-3" required />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="job" className="text-right">
-                Job
-              </Label>
-              <Input id="job" className="col-span-3" required />
-            </div>
-            <div className="grid grid-cols-4 items-center gap-4">
-              <Label htmlFor="category" className="text-right">
-                Category
-              </Label>
-              <Input
-                id="category"
-                className="col-span-3"
-                defaultValue="green"
-                required
-              />
-            </div>
-          </div> */}
         </DialogContent>
       </Dialog>
     </>
