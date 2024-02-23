@@ -1,11 +1,11 @@
 import { GiTatteredBanner } from "react-icons/gi";
-import AddTask from "@/components/AddTask";
 import TodoList from "@/components/TodoList";
 import { getTodoList } from "@/lib/api";
+import AddTask from "@/components/AddTask";
 
 export default async function Home() {
   const todoList = await getTodoList();
-  console.log("todoList", todoList);
+
   return (
     <main className="max-w-4xl mx-auto mt-4">
       <div className="text-center my-8 flex flex-col gap-4">
@@ -17,7 +17,7 @@ export default async function Home() {
           <GiTatteredBanner />
         </div>
         <AddTask />
-        <TodoList todoList={todoList}/>
+        <TodoList todoList={todoList} />
       </div>
     </main>
   );
