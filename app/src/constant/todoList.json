@@ -1,82 +1,9 @@
 {
   "tasks": [
     {
-      "id": 2,
+      "id": "b663ee7b-2758-4579-834d-8a628348d7a3",
       "name": "joeban",
-      "job": "go to home",
-      "category": "yellow"
-    },
-    {
-      "id": "92d904f9-51eb-45b3-b4b7-bcc2471ee83a",
-      "name": "chris",
-      "job": "play computer",
-      "category": "green"
-    },
-    {
-      "id": "6bb25d1b-1d94-430a-b572-938fb84a0c2f",
-      "name": "joe",
       "job": "go to school",
-      "category": "green"
-    },
-    {
-      "id": "9f2cf0ca-2435-44cc-af3f-a5931e9225d9",
-      "name": "joe",
-      "job": "go to school",
-      "category": "green"
-    },
-    {
-      "id": "0faefdeb-5c0b-4d77-b743-53516e886234",
-      "name": "joe",
-      "job": "go home",
-      "category": "green"
-    },
-    {
-      "id": "db488e92-c660-4aba-a9e9-124029206b80",
-      "name": "joe",
-      "job": "hihhii",
-      "category": "green"
-    },
-    {
-      "id": "e8abf368-80e5-482e-9b73-0e57913e7ad3",
-      "name": "joe",
-      "job": "try save 1",
-      "category": "green"
-    },
-    {
-      "id": "e3204bfc-bcd5-4b93-a78d-7bb7e9124a96",
-      "name": "joeban",
-      "job": "test failed",
-      "category": "green"
-    },
-    {
-      "id": "4ccea715-6315-4997-a43d-d629f8ed18dd",
-      "name": "joeban",
-      "job": "test failed",
-      "category": "green"
-    },
-    {
-      "id": "6a17d17e-b379-482d-9f93-d3decfe05116",
-      "name": "joeban",
-      "job": "ttttttt",
-      "category": "green"
-    },
-    {
-      "id": "3ac77271-5a75-490f-957d-1771ee359815",
-      "name": "joeban",
-      "job": "5555555",
-      "category": "green"
-    },
-    {
-      "id": "993da00b-97aa-4888-adad-e2fa66845595",
-      "name": "joeban",
-      "job": "666666",
-      "category": "green",
-      "update_time": "2024-02-23T08:05:29.006Z"
-    },
-    {
-      "id": "317f620d-8ea8-446e-bac9-a23cbdcba44b",
-      "name": "joeban",
-      "job": "7777777",
       "category": "green",
       "update_time": "2024-02-23-16:05"
     }

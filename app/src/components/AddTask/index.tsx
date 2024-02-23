@@ -32,8 +32,6 @@ import {
 } from "@/components/ui/select";
 import { postAddTask } from "@/lib/api";
 import { useState } from "react";
-import { toast } from "sonner";
-import { formattedTimeNow } from "@/utils/timeFormat";
 import { showCreateFailed, showCreateSuccess } from "@/utils/showStatus";
 import { useRouter } from "next/navigation";
 
@@ -54,7 +52,10 @@ const AddTask = () => {
     },
   });
 
-  const closeTaskModal = () => setIsOpenTask(false);
+  const closeTaskModal = () => {
+    setIsOpenTask(false);
+    form.reset();
+  };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const data = await postAddTask(values);
@@ -62,11 +63,13 @@ const AddTask = () => {
       showCreateFailed();
       closeTaskModal();
       router.refresh();
+      form.reset();
       return;
     }
     showCreateSuccess();
     closeTaskModal();
     router.refresh();
+    form.reset();
     // toast("Event has been created", {
     //   description: formattedTimeNow,
     //   action: {
@@ -78,7 +81,19 @@ const AddTask = () => {
   };
   return (
     <>
-      <Dialog open={isOpenTask} onOpenChange={setIsOpenTask}>
+      <Dialog
+        open={isOpenTask}
+        onOpenChange={() => {
+          setIsOpenTask((pre) => {
+            if (pre === true) {
+              form.reset();
+              return false;
+            }
+            return true;
+          });
+          // setIsOpenTask();
+        }}
+      >
         <DialogTrigger asChild>
           <Button className="flex gap-2" variant="default">
             <FaPlus /> Add new task

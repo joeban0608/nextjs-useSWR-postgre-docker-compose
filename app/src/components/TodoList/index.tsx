@@ -40,6 +40,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Task } from "@/types/task";
+import { FileEdit, Trash2 } from "lucide-react";
+import DeleteTask from "../DeleteTask";
 
 const columns: ColumnDef<Task>[] = [
   {
@@ -135,28 +137,33 @@ const columns: ColumnDef<Task>[] = [
     id: "actions",
     enableHiding: false,
     cell: ({ row }) => {
-      const Task = row.original;
+      const task = row.original;
 
       return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Open menu</span>
-              <DotsHorizontalIcon className="h-4 w-4" />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuLabel>Actions</DropdownMenuLabel>
-            <DropdownMenuItem
-              onClick={() => navigator.clipboard.writeText(Task.id)}
-            >
-              Copy Task ID
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>View customer</DropdownMenuItem>
-            <DropdownMenuItem>View Task details</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <div className="flex gap-2">
+          <FileEdit className="cursor-pointer" />
+          <DeleteTask task={task} />
+        </div>
+
+        // <DropdownMenu>
+        //   <DropdownMenuTrigger asChild>
+        //     <Button variant="ghost" className="h-8 w-8 p-0">
+        //       <span className="sr-only">Open menu</span>
+        //       <DotsHorizontalIcon className="h-4 w-4" />
+        //     </Button>
+        //   </DropdownMenuTrigger>
+        //   <DropdownMenuContent align="end">
+        //     <DropdownMenuLabel>Actions</DropdownMenuLabel>
+        //     <DropdownMenuItem
+        //       onClick={() => navigator.clipboard.writeText(Task.id)}
+        //     >
+        //       Copy Task ID
+        //     </DropdownMenuItem>
+        //     <DropdownMenuSeparator />
+        //     <DropdownMenuItem>View customer</DropdownMenuItem>
+        //     <DropdownMenuItem>View Task details</DropdownMenuItem>
+        //   </DropdownMenuContent>
+        // </DropdownMenu>
       );
     },
   },

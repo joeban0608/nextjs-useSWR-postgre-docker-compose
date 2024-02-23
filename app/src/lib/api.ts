@@ -1,4 +1,5 @@
 import { Task } from "@/types/task";
+import { showDeletedFailed, showDeletedSuccess } from "@/utils/showStatus";
 import { formattedCurrentTimeISO } from "@/utils/timeFormat";
 
 const baseUrl = "http://localhost:3001";
@@ -19,6 +20,7 @@ export const getTodoList = async (): Promise<Task[]> => {
 type Error = {
   error: string;
 };
+
 export const postAddTask = async (
   task: Omit<Task, "id" | "update_time">
 ): Promise<Task | Error> => {
@@ -42,5 +44,38 @@ export const postAddTask = async (
     return {
       error: JSON.stringify(e),
     };
+  }
+};
+
+export const postDeleteTask = async (
+  task_id: string
+): Promise<
+  | Error
+  | {
+      text: string;
+    }
+> => {
+  try {
+    const url = `${baseUrl}/tasks/${task_id}`;
+    const res = await fetch(url, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+    if (!res.ok) {
+      showDeletedFailed();
+      // showDeletedFailed(task_id);
+      throw Error(`Delete Task is failed`);
+    }
+    showDeletedSuccess();
+
+    return {
+      text: `Task is deleted`,
+    };
+  } catch (e) {
+    console.log("delete task error", e);
+    showDeletedFailed();
+    throw Error(JSON.stringify(e));
   }
 };
