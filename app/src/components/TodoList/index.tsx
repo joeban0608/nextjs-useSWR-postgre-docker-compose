@@ -67,15 +67,35 @@ const columns: ColumnDef<Task>[] = [
   },
   {
     accessorKey: "name",
-    header: () => <div className="text-right">Name</div>,
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Name
+          <CaretSortIcon className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => {
       const name = row.getValue("name") as string;
-      return <div className="text-right font-medium">{name}</div>;
+      return <div className="text-center font-medium">{name}</div>;
     },
   },
   {
     accessorKey: "job",
-    header: "Job",
+    header: ({ column }) => {
+      return (
+        <Button
+          variant="ghost"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          Job
+          <CaretSortIcon className="ml-2 h-4 w-4" />
+        </Button>
+      );
+    },
     cell: ({ row }) => <div className="capitalize">{row.getValue("job")}</div>,
   },
   {
