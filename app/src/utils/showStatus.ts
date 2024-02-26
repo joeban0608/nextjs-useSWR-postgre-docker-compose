@@ -38,8 +38,29 @@ export const showCreateSuccess = () => {
     },
   });
 };
+
 export const showCreateFailed = () => {
   toast.error("Task creation failed, please try again", {
+    description: formattedTimeNow,
+    action: {
+      label: "Close",
+      onClick: () => console.log("close"),
+    },
+  });
+};
+
+export const showEditSuccess = () => {
+  toast.success("Task has been Edited", {
+    description: formattedTimeNow,
+    action: {
+      label: "Close",
+      onClick: () => console.log("close"),
+    },
+  });
+};
+
+export const showEditFailed = () => {
+  toast.error("Task Edited failed, please try again", {
     description: formattedTimeNow,
     action: {
       label: "Close",

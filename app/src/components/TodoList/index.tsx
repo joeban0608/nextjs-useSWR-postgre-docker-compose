@@ -25,9 +25,6 @@ import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Input } from "@/components/ui/input";
@@ -40,8 +37,8 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { Task } from "@/types/task";
-import { FileEdit, Trash2 } from "lucide-react";
 import DeleteTask from "../DeleteTask";
+import AddAndEditTask from "../AddAndEditTask";
 
 const columns: ColumnDef<Task>[] = [
   {
@@ -141,29 +138,9 @@ const columns: ColumnDef<Task>[] = [
 
       return (
         <div className="flex gap-2">
-          <FileEdit className="cursor-pointer" />
+          <AddAndEditTask taskType="edit" task={task} />
           <DeleteTask task={task} />
         </div>
-
-        // <DropdownMenu>
-        //   <DropdownMenuTrigger asChild>
-        //     <Button variant="ghost" className="h-8 w-8 p-0">
-        //       <span className="sr-only">Open menu</span>
-        //       <DotsHorizontalIcon className="h-4 w-4" />
-        //     </Button>
-        //   </DropdownMenuTrigger>
-        //   <DropdownMenuContent align="end">
-        //     <DropdownMenuLabel>Actions</DropdownMenuLabel>
-        //     <DropdownMenuItem
-        //       onClick={() => navigator.clipboard.writeText(Task.id)}
-        //     >
-        //       Copy Task ID
-        //     </DropdownMenuItem>
-        //     <DropdownMenuSeparator />
-        //     <DropdownMenuItem>View customer</DropdownMenuItem>
-        //     <DropdownMenuItem>View Task details</DropdownMenuItem>
-        //   </DropdownMenuContent>
-        // </DropdownMenu>
       );
     },
   },

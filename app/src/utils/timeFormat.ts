@@ -43,8 +43,8 @@ export const formattedTimeNow = `${weekday}, ${month} ${day}, ${year} at ${hours
   minutes < 10 ? "0" : ""
 }${minutes} ${amPm}`;
 
-const currentTimeISO = new Date("2024-02-23T08:05:29.006Z");
-export const formattedCurrentTimeISO= `${currentTimeISO.getFullYear()}-${(
+const currentTimeISO = new Date();
+export const formattedCurrentTimeISO = `${currentTimeISO.getFullYear()}-${(
   "0" +
   (currentTimeISO.getMonth() + 1)
 ).slice(-2)}-${("0" + currentTimeISO.getDate()).slice(-2)}-${(

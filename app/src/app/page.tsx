@@ -1,7 +1,7 @@
 import { GiTatteredBanner } from "react-icons/gi";
 import TodoList from "@/components/TodoList";
 import { getTodoList } from "@/lib/api";
-import AddTask from "@/components/AddTask";
+import AddAndEditTask from "@/components/AddAndEditTask";
 
 export default async function Home() {
   const todoList = await getTodoList();
@@ -16,7 +16,7 @@ export default async function Home() {
           </h1>
           <GiTatteredBanner />
         </div>
-        <AddTask />
+        <AddAndEditTask taskType = "add"/>
         <TodoList todoList={todoList} />
       </div>
     </main>

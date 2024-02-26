@@ -14,7 +14,6 @@ import { postDeleteTask } from "@/lib/api";
 import { Task } from "@/types/task";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Trash2 } from "lucide-react";
-import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -32,7 +31,6 @@ const formSchema = z.object({
 
 const DeleteTask = ({ task }: { task: Task }) => {
   const [inputDeleteText, setInputDeleteText] = useState("");
-  const router = useRouter();
   const [isOpenDialog, setIsOpenDialog] = useState(false);
   const closeDialog = () => {
     setIsOpenDialog(false);
@@ -43,7 +41,6 @@ const DeleteTask = ({ task }: { task: Task }) => {
   });
   const deleteTask = async () => {
     await postDeleteTask(task.id);
-    await form.reset();
     closeDialog();
   };
 
@@ -60,7 +57,6 @@ const DeleteTask = ({ task }: { task: Task }) => {
           }
           return true;
         });
-        // setIsOpenTask();
       }}
     >
       <DialogTrigger asChild>
@@ -86,7 +82,7 @@ const DeleteTask = ({ task }: { task: Task }) => {
                     <Input
                       id="deleteText"
                       className="col-span-3"
-                      {...field}
+                      defaultValue={field.value}
                       onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
                         field.onChange(e.target.value);
                         setInputDeleteText(e.target.value);
@@ -98,7 +94,11 @@ const DeleteTask = ({ task }: { task: Task }) => {
               )}
             />
             <DialogFooter>
-              <Button type="submit" disabled={inputDeleteText !== "DELETE"}>
+              <Button
+                variant="destructive"
+                type="submit"
+                disabled={inputDeleteText !== "DELETE"}
+              >
                 Continue
               </Button>
             </DialogFooter>
