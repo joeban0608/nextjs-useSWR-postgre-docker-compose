@@ -1,6 +1,16 @@
 import { toast } from "sonner";
 import { formattedTimeNow } from "./timeFormat";
 
+export const showGetAllTaskFailed = () => {
+  toast.error("Get All Tasks failed, please connect admin", {
+    description: formattedTimeNow,
+    action: {
+      label: "Close",
+      onClick: () => console.log("close"),
+    },
+  });
+};
+
 export const showDeletedSuccess = () => {
   toast.success(`Deleted Task has been success`, {
     description: formattedTimeNow,

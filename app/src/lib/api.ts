@@ -1,5 +1,11 @@
 import { Task } from "@/types/task";
-import { showDeletedFailed, showDeletedSuccess } from "@/utils/showStatus";
+import {
+  showCreateFailed,
+  showCreateSuccess,
+  showDeletedFailed,
+  showDeletedSuccess,
+  showGetAllTaskFailed,
+} from "@/utils/showStatus";
 import { formattedCurrentTimeISO } from "@/utils/timeFormat";
 
 const baseUrl = "http://localhost:3001";
@@ -9,10 +15,14 @@ export const getTodoList = async (): Promise<Task[]> => {
   try {
     const url = `${baseUrl}/tasks`;
     const res = await fetch(url, { cache: "no-cache" });
+    if (!res.ok) {
+      throw Error(`Get All Tasks failed`);
+    }
     const data = await res.json();
     return data;
   } catch (e) {
     console.log("getTodoList error", e);
+    showGetAllTaskFailed();
     return [];
   }
 };
@@ -23,7 +33,7 @@ type Error = {
 
 export const postAddTask = async (
   task: Omit<Task, "id" | "update_time">
-): Promise<Task | Error> => {
+): Promise<Task | Error | void> => {
   try {
     const url = `${baseUrl}/tasks`;
     const res = await fetch(url, {
@@ -37,13 +47,16 @@ export const postAddTask = async (
         update_time: formattedCurrentTimeISO,
       }),
     });
+    if (!res.ok) {
+      throw Error(`Create Task is failed`);
+    }
+    showCreateSuccess();
     const newTodo = await res.json();
     return newTodo;
   } catch (e) {
+    showCreateFailed();
     console.log("post add task error", e);
-    return {
-      error: JSON.stringify(e),
-    };
+    throw Error(`Create Task is failed`);
   }
 };
 
@@ -64,8 +77,6 @@ export const postDeleteTask = async (
       },
     });
     if (!res.ok) {
-      showDeletedFailed();
-      // showDeletedFailed(task_id);
       throw Error(`Delete Task is failed`);
     }
     showDeletedSuccess();

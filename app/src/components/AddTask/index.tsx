@@ -55,29 +55,13 @@ const AddTask = () => {
   const closeTaskModal = () => {
     setIsOpenTask(false);
     form.reset();
+    router.refresh();
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
     const data = await postAddTask(values);
-    if ("error" in data) {
-      showCreateFailed();
-      closeTaskModal();
-      router.refresh();
-      form.reset();
-      return;
-    }
-    showCreateSuccess();
-    closeTaskModal();
-    router.refresh();
-    form.reset();
-    // toast("Event has been created", {
-    //   description: formattedTimeNow,
-    //   action: {
-    //     label: "Created status",
-    //     onClick: () => console.log("Undo"),
-    //   },
-    // });
     console.log("data", data);
+    closeTaskModal();
   };
   return (
     <>
