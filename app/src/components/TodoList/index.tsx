@@ -147,11 +147,7 @@ const columns: ColumnDef<Task>[] = [
 const TodoList = () =>
   // { todoList }: { todoList: Task[] }
   {
-    const {
-      data: todoList,
-      error,
-      isLoading,
-    } = useSWR("/api/user", getTodoList);
+    const { data: todoList, error, isLoading } = useSWR("/tasks", getTodoList);
 
     const [sorting, setSorting] = React.useState<SortingState>([]);
     const [columnFilters, setColumnFilters] =

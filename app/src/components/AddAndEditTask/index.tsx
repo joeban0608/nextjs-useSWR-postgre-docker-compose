@@ -35,6 +35,7 @@ import { useState } from "react";
 import { FileEdit } from "lucide-react";
 import { taskDialogInfoTable } from "./dialogInfo";
 import { Task } from "@/types/task";
+import { useSWRConfig } from "swr";
 
 const formSchema = z.object({
   name: z.string().min(2).max(50),
@@ -46,6 +47,8 @@ type AddAndEditTaskProps = {
   task?: Task;
 };
 const AddAndEditTask = ({ taskType, task }: AddAndEditTaskProps) => {
+  const { mutate } = useSWRConfig();
+
   const [isOpenTask, setIsOpenTask] = useState(false);
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -70,6 +73,7 @@ const AddAndEditTask = ({ taskType, task }: AddAndEditTaskProps) => {
     console.log("here");
     if (taskType === "add") {
       await postAddTask(values);
+      mutate("/tasks");
     }
     if (taskType === "edit") {
       const targetTask = task as Task;
