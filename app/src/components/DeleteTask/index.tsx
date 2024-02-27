@@ -24,12 +24,15 @@ import {
   FormItem,
   FormMessage,
 } from "@/components/ui/form";
+import { useSWRConfig } from "swr";
 
 const formSchema = z.object({
   deleteText: z.string(),
 });
 
 const DeleteTask = ({ task }: { task: Task }) => {
+  const { mutate } = useSWRConfig();
+
   const [inputDeleteText, setInputDeleteText] = useState("");
   const [isOpenDialog, setIsOpenDialog] = useState(false);
   const closeDialog = () => {
@@ -41,6 +44,7 @@ const DeleteTask = ({ task }: { task: Task }) => {
   });
   const deleteTask = async () => {
     await postDeleteTask(task.id);
+    mutate("/tasks");
     closeDialog();
   };
 

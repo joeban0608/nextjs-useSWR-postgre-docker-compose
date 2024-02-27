@@ -70,7 +70,6 @@ const AddAndEditTask = ({ taskType, task }: AddAndEditTaskProps) => {
   };
 
   const onSubmit = async (values: z.infer<typeof formSchema>) => {
-    console.log("here");
     if (taskType === "add") {
       await postAddTask(values);
     }

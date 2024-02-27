@@ -1,11 +1,11 @@
 {
   "tasks": [
     {
-      "id": "e01edb8d-04b9-4b5a-b7c7-e0e506e9e30d",
       "name": "joebantest",
       "job": "go to test",
-      "category": "green",
-      "update_time": "2024-02-26-20:47"
+      "category": "red",
+      "update_time": "2024-02-27-17:47",
+      "id": "e01edb8d-04b9-4b5a-b7c7-e0e506e9e30d"
     },
     {
       "id": "c5152363-66e1-498f-9d72-cdea45258e69",
@@ -20,20 +20,6 @@
       "job": "123123",
       "category": "green",
       "update_time": "2024-02-27-17:25"
-    },
-    {
-      "id": "fa1c5b8e-e9a7-4b86-ba28-ee73436adbfd",
-      "name": "joeban456",
-      "job": "go to school",
-      "category": "green",
-      "update_time": "2024-02-27-17:47"
-    },
-    {
-      "id": "5615a8c4-91c1-42aa-80cc-dccfe894288b",
-      "name": "joeban789",
-      "job": "ggogoo",
-      "category": "green",
-      "update_time": "2024-02-27-17:47"
     }
   ]
 }
