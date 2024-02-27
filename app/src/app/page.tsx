@@ -16,8 +16,10 @@ export default async function Home() {
           </h1>
           <GiTatteredBanner />
         </div>
-        <AddAndEditTask taskType = "add"/>
-        <TodoList todoList={todoList} />
+        <AddAndEditTask taskType="add" />
+        <TodoList
+        //  todoList={todoList}
+        />
       </div>
     </main>
   );

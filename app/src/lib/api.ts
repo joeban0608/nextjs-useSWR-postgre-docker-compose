@@ -16,7 +16,7 @@ import { v4 as uuidv4 } from "uuid";
 export const getTodoList = async (): Promise<Task[]> => {
   try {
     const url = `${baseUrl}/tasks`;
-    const res = await fetch(url, { cache: "no-cache" });
+    const res = await fetch(url);
     if (!res.ok) {
       throw Error(`Get All Tasks failed`);
     }
