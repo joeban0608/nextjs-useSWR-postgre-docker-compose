@@ -73,13 +73,13 @@ const AddAndEditTask = ({ taskType, task }: AddAndEditTaskProps) => {
     console.log("here");
     if (taskType === "add") {
       await postAddTask(values);
-      mutate("/tasks");
     }
     if (taskType === "edit") {
       const targetTask = task as Task;
       const taskId = targetTask.id;
       await postEditTask(values, taskId);
     }
+    mutate("/tasks");
 
     closeTaskModal();
   };
