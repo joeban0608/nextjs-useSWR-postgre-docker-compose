@@ -1,10 +1,10 @@
 import { GiTatteredBanner } from "react-icons/gi";
 import TodoList from "@/components/TodoList";
-import { getTodoList } from "@/lib/api";
+// import { getTodoList } from "@/lib/api";
 import AddAndEditTask from "@/components/AddAndEditTask";
 
 export default async function Home() {
-  const todoList = await getTodoList();
+  // const todoList = await getTodoList();
 
   return (
     <main className="max-w-4xl mx-auto mt-4">

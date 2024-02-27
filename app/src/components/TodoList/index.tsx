@@ -179,6 +179,37 @@ const TodoList = () =>
       },
     });
 
+    const todoListJSX = () => {
+      if (isLoading)
+        return (
+          <TableRow>
+            <TableCell colSpan={columns.length} className="h-24 text-center">
+              <div className="flex justify-center">
+                <MoonLoader color="#0F172A" />
+              </div>{" "}
+            </TableCell>
+          </TableRow>
+        );
+      if (table.getRowModel().rows?.length) {
+        return table.getRowModel().rows.map((row) => (
+          <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+            {row.getVisibleCells().map((cell) => (
+              <TableCell key={cell.id}>
+                {flexRender(cell.column.columnDef.cell, cell.getContext())}
+              </TableCell>
+            ))}
+          </TableRow>
+        ));
+      }
+      return (
+        <TableRow>
+          <TableCell colSpan={columns.length} className="h-24 text-center">
+            No results.
+          </TableCell>
+        </TableRow>
+      );
+    };
+
     return (
       <div className="w-full">
         <div className="flex items-center py-4">
@@ -237,40 +268,7 @@ const TodoList = () =>
                 </TableRow>
               ))}
             </TableHeader>
-            <TableBody>
-              {table.getRowModel().rows?.length ? (
-                table.getRowModel().rows.map((row) => (
-                  <TableRow
-                    key={row.id}
-                    data-state={row.getIsSelected() && "selected"}
-                  >
-                    {row.getVisibleCells().map((cell) => (
-                      <TableCell key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext()
-                        )}
-                      </TableCell>
-                    ))}
-                  </TableRow>
-                ))
-              ) : (
-                <TableRow>
-                  <TableCell
-                    colSpan={columns.length}
-                    className="h-24 text-center"
-                  >
-                    {isLoading ? (
-                      <div className="flex justify-center">
-                        <MoonLoader color="#0F172A" />
-                      </div>
-                    ) : (
-                      "No results."
-                    )}
-                  </TableCell>
-                </TableRow>
-              )}
-            </TableBody>
+            <TableBody>{todoListJSX()}</TableBody>
           </Table>
         </div>
         <div className="flex items-center justify-end space-x-2 py-4">
