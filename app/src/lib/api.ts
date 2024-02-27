@@ -9,13 +9,14 @@ import {
   showGetAllTaskFailed,
 } from "@/utils/showStatus";
 import { formattedCurrentTimeISO } from "@/utils/timeFormat";
-
 const baseUrl = "http://localhost:3001";
 import { v4 as uuidv4 } from "uuid";
 
-export const getTodoList = async (): Promise<Task[]> => {
+export const getTodoList = async (queryParams?: string): Promise<Task[]> => {
   try {
-    const url = `${baseUrl}/tasks`;
+    console.log("queryParams in get api", queryParams);
+    const queryParamsUrl = queryParams || "";
+    const url = `${baseUrl}/tasks` + queryParamsUrl;
     const res = await fetch(url);
     if (!res.ok) {
       throw Error(`Get All Tasks failed`);

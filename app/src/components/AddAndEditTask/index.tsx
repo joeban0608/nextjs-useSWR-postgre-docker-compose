@@ -78,7 +78,7 @@ const AddAndEditTask = ({ taskType, task }: AddAndEditTaskProps) => {
       const taskId = targetTask.id;
       await postEditTask(values, taskId);
     }
-    mutate("/tasks");
+    mutate(["/tasks", "query"]);
 
     closeTaskModal();
   };

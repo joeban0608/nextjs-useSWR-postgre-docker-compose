@@ -44,7 +44,7 @@ const DeleteTask = ({ task }: { task: Task }) => {
   });
   const deleteTask = async () => {
     await postDeleteTask(task.id);
-    mutate("/tasks");
+    mutate(["/tasks", "query"]);
     closeDialog();
   };
 

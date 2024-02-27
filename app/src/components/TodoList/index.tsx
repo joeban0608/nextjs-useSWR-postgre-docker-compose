@@ -1,6 +1,6 @@
 "use client";
-import useSWR from "swr";
-import * as React from "react";
+import useSWR, { mutate } from "swr";
+import React, { useContext, useEffect, useState } from "react";
 import { CaretSortIcon, ChevronDownIcon } from "@radix-ui/react-icons";
 import {
   ColumnDef,
@@ -17,13 +17,13 @@ import {
 
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
+// import {
+//   DropdownMenu,
+//   DropdownMenuCheckboxItem,
+//   DropdownMenuContent,
+//   DropdownMenuTrigger,
+// } from "@/components/ui/dropdown-menu";
+// import { Input } from "@/components/ui/input";
 import {
   Table,
   TableBody,
@@ -37,6 +37,7 @@ import DeleteTask from "../DeleteTask";
 import AddAndEditTask from "../AddAndEditTask";
 import { getTodoList } from "@/lib/api";
 import MoonLoader from "react-spinners/MoonLoader";
+import { QueryTodoListContext } from "@/providers/QueryTodoListProvider";
 
 const columns: ColumnDef<Task>[] = [
   {
@@ -147,7 +148,13 @@ const columns: ColumnDef<Task>[] = [
 const TodoList = () =>
   // { todoList }: { todoList: Task[] }
   {
-    const { data: todoList, error, isLoading } = useSWR("/tasks", getTodoList);
+    const { queryParams } = useContext(QueryTodoListContext);
+
+    const {
+      data: todoList,
+      error,
+      isLoading,
+    } = useSWR(["/tasks", "query"], () => getTodoList(queryParams || ""));
 
     const [sorting, setSorting] = React.useState<SortingState>([]);
     const [columnFilters, setColumnFilters] =
@@ -208,7 +215,7 @@ const TodoList = () =>
 
     return (
       <div className="w-full">
-        <div className="flex items-center py-4">
+        {/* <div className="flex items-center py-4">
           <Input
             placeholder="Filter name..."
             value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
@@ -243,7 +250,7 @@ const TodoList = () =>
                 })}
             </DropdownMenuContent>
           </DropdownMenu>
-        </div>
+        </div> */}
         <div className="rounded-md border">
           <Table>
             <TableHeader>
